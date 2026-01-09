@@ -367,16 +367,14 @@ async def update_status_message():
 # ==================== Main Entry Point ====================
 
 async def main():
-    async def main():
     """Main function"""
-    logger.info("Starting AutoAnimeBot...")
+    # Everything below this line MUST be pushed 4 spaces to the right
+      logger.info("Starting AutoAnimeBot...")
     
-    try:
-        # --- NEW RENDER FIX LINE ---
-        # This starts the web server so Render doesn't shut you down
+      try:
+        # Start the web server for Render
         threading.Thread(target=run_web_server, daemon=True).start()
         
-        # --- YOUR ORIGINAL LOGIC CONTINUES BELOW ---
         # Initialize database
         await db.connect()
         logger.info("Database connected")
@@ -398,12 +396,6 @@ async def main():
     finally:
         await app.stop()
         await db.close()
-
-
-
-
-
-
 # Add this at the top with other imports
 from flask import Flask
 import threading
@@ -422,3 +414,4 @@ def run_web_server():
 
 # In your main() function, before 'await idle()', add:
 # threading.Thread(target=run_web_server, daemon=True).start()
+        
