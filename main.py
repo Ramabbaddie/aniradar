@@ -14,7 +14,24 @@ from downloader import AnimeDownloader
 from uploader import TelegramUploader
 from flask import Flask
 import threading
+import asyncio
+import logging
+import os            # <--- ADD THIS
+import threading     # <--- ADD THIS
+from flask import Flask # <--- ADD THIS
+from pyrogram import Client, filters, idle
+# ... keep your other imports (Config, Database, etc.)
 # Setup logging
+
+webapp = Flask(__name__)
+
+@webapp.route('/')
+def health_check():
+    return "Bot is Running!", 200
+
+def run_web_server():
+    port = int(os.environ.get("PORT", 10000))
+    webapp.run(host='0.0.0.0', port=port)
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -350,10 +367,16 @@ async def update_status_message():
 # ==================== Main Entry Point ====================
 
 async def main():
+    async def main():
     """Main function"""
     logger.info("Starting AutoAnimeBot...")
     
     try:
+        # --- NEW RENDER FIX LINE ---
+        # This starts the web server so Render doesn't shut you down
+        threading.Thread(target=run_web_server, daemon=True).start()
+        
+        # --- YOUR ORIGINAL LOGIC CONTINUES BELOW ---
         # Initialize database
         await db.connect()
         logger.info("Database connected")
@@ -368,9 +391,6 @@ async def main():
         asyncio.create_task(update_status_message())
         
         logger.info("All background tasks started")
-        logger.info("Bot is now running. Press Ctrl+C to stop.")
-        
-        # Keep the bot running
         await idle()
         
     except Exception as e:
@@ -378,23 +398,6 @@ async def main():
     finally:
         await app.stop()
         await db.close()
-        logger.info("Bot stopped")
-
-
-
-
-Flask(__name__)
-
-@webapp.route('/')
-def health_check():
-    return "Bot is running!", 200
-
-def run_web_server():
-    # Render provides the port in an environment variable
-    port = int(os.environ.get("PORT", 10000))
-    webapp.run(host='0.0.0.0', port=port)
-if __name__ == "__main__":
-    asyncio.run(main())
 
 
 
