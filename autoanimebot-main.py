@@ -382,3 +382,27 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
+
+
+
+
+
+# Add this at the top with other imports
+from flask import Flask
+import threading
+
+# Add this before 'if __name__ == "__main__":'
+webapp = Flask(__name__)
+
+@webapp.route('/')
+def health_check():
+    return "Bot is running!", 200
+
+def run_web_server():
+    # Render provides the port in an environment variable
+    port = int(os.environ.get("PORT", 10000))
+    webapp.run(host='0.0.0.0', port=port)
+
+# In your main() function, before 'await idle()', add:
+# threading.Thread(target=run_web_server, daemon=True).start()
