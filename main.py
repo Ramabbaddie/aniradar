@@ -12,7 +12,8 @@ from database import Database
 from scheduler import AnimeScheduler
 from downloader import AnimeDownloader
 from uploader import TelegramUploader
-
+from flask import Flask
+import threading
 # Setup logging
 logging.basicConfig(
     level=logging.INFO,
@@ -380,6 +381,18 @@ async def main():
         logger.info("Bot stopped")
 
 
+
+
+Flask(__name__)
+
+@webapp.route('/')
+def health_check():
+    return "Bot is running!", 200
+
+def run_web_server():
+    # Render provides the port in an environment variable
+    port = int(os.environ.get("PORT", 10000))
+    webapp.run(host='0.0.0.0', port=port)
 if __name__ == "__main__":
     asyncio.run(main())
 
