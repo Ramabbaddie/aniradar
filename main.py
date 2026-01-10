@@ -385,17 +385,15 @@ async def main():
         logger.info("Database connected")
         
         # Start the bot
-        # Start the bot
         await app.start()
         logger.info("Bot started successfully!")
 
-        # SYNC USING THE CORRECT USERNAME FORMAT
+        # THIS LINE FIXES THE PEER ID ERROR ONCE LOGIN SUCCEEDS
         try:
-            # Use the plain username string
-            await app.get_chat("zoro_fun11") 
-            logger.info("Successfully synced with channel: zoro_fun11")
+            await app.get_chat("zoro_fun11")
+            logger.info("Synced with channel: zoro_fun11")
         except Exception as e:
-            logger.warning(f"Sync failed: {e}")
+            logger.warning(f"Initial sync failed: {e}")
         # ----------------------------------------------------
 
         # Start background tasks
