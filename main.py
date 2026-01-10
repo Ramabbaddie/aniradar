@@ -386,6 +386,7 @@ async def main():
         
         # Start the bot
         await app.start()
+        await app.get_chat("-1003216054825")
         logger.info("Bot started successfully!")
         
         # Start background tasks
