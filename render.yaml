@@ -1,0 +1,63 @@
+services:
+  - type: web
+    name: anime-radar-bot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    envVars:
+      - key: API_ID
+        sync: false
+      - key: API_HASH
+        sync: false
+      - key: BOT_TOKEN
+        sync: false
+      - key: ADMIN_IDS
+        sync: false
+      - key: INDEX_CHANNEL_ID
+        sync: false
+      - key: INDEX_CHANNEL_USERNAME
+        sync: false
+      - key: UPLOADS_CHANNEL_ID
+        sync: false
+      - key: UPLOADS_CHANNEL_USERNAME
+        sync: false
+      - key: CHANNEL_TITLE
+        sync: false
+      - key: COMMENTS_GROUP_LINK
+        sync: false
+      - key: STATUS_MSG_ID
+        sync: false
+      - key: SCHEDULE_MSG_ID
+        sync: false
+      - key: MONGO_URI
+        sync: false
+      - key: DATABASE_NAME
+        value: autoanimebot
+      - key: CONSUMET_API
+        value: https://api.consumet.org
+      - key: DOWNLOAD_DIR
+        value: ./downloads
+      - key: DOWNLOAD_QUALITIES
+        value: 360p,480p,720p,1080p
+      - key: MAX_FILE_SIZE
+        value: 2000
+      - key: DOWNLOAD_TIMEOUT
+        value: 3600
+      - key: UPLOAD_SLEEP_TIME
+        value: 5
+      - key: MAX_RETRIES
+        value: 3
+      - key: CHECK_INTERVAL
+        value: 300
+      - key: STATUS_UPDATE_INTERVAL
+        value: 300
+      - key: ENABLE_THUMBNAILS
+        value: True
+      - key: AUTO_DETECT
+        value: True
+      - key: ENABLE_VOTING
+        value: True
+      - key: DELETE_AFTER_UPLOAD
+        value: True
+      - key: LOG_LEVEL
+        value: INFO
