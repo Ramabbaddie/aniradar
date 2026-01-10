@@ -367,36 +367,34 @@ async def update_status_message():
 # ==================== Main Entry Point ====================
 async def main():
     """Main function"""
+    # Everything below this line MUST be pushed 4 spaces to the right
     logger.info("Starting AutoAnimeBot...")
-    try:
-        # start the web server in a daemon thread
+    
+	try:
+        # Start the web server for Render
         threading.Thread(target=run_web_server, daemon=True).start()
-
+        
+        # Initialize database
         await db.connect()
         logger.info("Database connected")
-
+        
         # Start the bot
         await app.start()
         logger.info("Bot started successfully!")
-
+        
         # Start background tasks
         asyncio.create_task(check_new_episodes())
         asyncio.create_task(process_download_queue())
         asyncio.create_task(update_status_message())
-
+        
         logger.info("All background tasks started")
         await idle()
-
+        
     except Exception as e:
         logger.error(f"Fatal error: {e}")
     finally:
         await app.stop()
         await db.close()
-
-
-if __name__ == "__main__":
-    asyncio.run(main())
-
 # Add this before 'if __name__ == "__main__":'
 webapp = Flask(__name__)
 
