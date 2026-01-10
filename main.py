@@ -368,14 +368,12 @@ async def update_status_message():
 
 async def main():
     """Main function"""
-    # Everything below this line MUST be pushed 4 spaces to the right
-      logger.info("Starting AutoAnimeBot...")
+    logger.info("Starting AutoAnimeBot...")
     
-      try:
-        # Start the web server for Render
+    try:
+        # This line must be exactly 8 spaces in (4 for main, 4 for try)
         threading.Thread(target=run_web_server, daemon=True).start()
-        
-        # Initialize database
+
         await db.connect()
         logger.info("Database connected")
         
@@ -390,16 +388,12 @@ async def main():
         
         logger.info("All background tasks started")
         await idle()
-        
-    except Exception as e:
+
+   except Exception as e:
         logger.error(f"Fatal error: {e}")
     finally:
         await app.stop()
         await db.close()
-# Add this at the top with other imports
-from flask import Flask
-import threading
-
 # Add this before 'if __name__ == "__main__":'
 webapp = Flask(__name__)
 
