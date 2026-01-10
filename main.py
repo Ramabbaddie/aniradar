@@ -5,6 +5,10 @@ Recreated for 2025 with modern tech stack
 
 import asyncio
 import logging
+import os
+import threading
+from flask import Flask # <--- ADD THIS
+from pyrogram import Client, filters, idle
 from pyrogram import Client, filters, idle
 from pyrogram.types import Message
 from config import Config
@@ -25,6 +29,18 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Initialize bot client
+# --- RENDER HEARTBEAT SETUP ---
+webapp = Flask(__name__)
+
+@webapp.route('/')
+def health_check():
+    return "Bot is Running!", 200
+
+def run_web_server():
+    # Render provides the port automatically
+    port = int(os.environ.get("PORT", 10000))
+    webapp.run(host='0.0.0.0', port=port)
+# ------------------------------
 app = Client(
     name="AutoAnimeBot",
     api_id=Config.API_ID,
@@ -357,6 +373,14 @@ async def main():
     
     try:
         # Initialize database
+        # PASTE THIS LINE HERE:
+        threading.Thread(target=run_web_server, daemon=True).start()
+        
+        # Initialize database
+        await db.connect()
+        logger.info("Database connected")
+        
+        # ... rest of your code stays exactly the same ...
         await db.connect()
         logger.info("Database connected")
         
