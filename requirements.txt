@@ -1,29 +1,10 @@
-# Telegram Client
 pyrogram==2.0.106
 TgCrypto==1.2.5
-
-# Database (Pin these versions to avoid the previous motor error)
-motor==3.6.0
-pymongo==4.9.1
-
-# HTTP Client
+motor==3.3.2
 aiohttp==3.9.1
 httpx==0.25.2
-
-# File Operations
 aiofiles==23.2.1
-
-# Image Processing (Updated for Python 3.13)
-Pillow>=10.4.0
-
-# Environment Variables
+Pillow==10.1.0
 python-dotenv==1.0.0
-
-# Performance (Updated for Python 3.13)
-uvloop>=0.21.0
-
-# Utilities
+uvloop==0.19.0
 python-dateutil==2.8.2
-
-# Web Server (REALLY IMPORTANT FOR RENDER)
-flask==3.0.0
