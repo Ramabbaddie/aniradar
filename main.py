@@ -385,9 +385,17 @@ async def main():
         logger.info("Database connected")
         
         # Start the bot
+        # Start the bot
         await app.start()
-        await app.get_chat("-1003216054825")
         logger.info("Bot started successfully!")
+
+        # --- ADD THESE TWO LINES TO FIX THE PEER ID ERROR ---
+        await app.get_chat("-1003216054825")
+        await app.get_chat("-1003632450095")
+        # ----------------------------------------------------
+
+        # Start background tasks
+        asyncio.create_task(check_new_episodes())
         
         # Start background tasks
         asyncio.create_task(check_new_episodes())
